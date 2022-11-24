@@ -86,7 +86,7 @@ print(MseLR)
 
 # MLP Regressor Model
 
-MLPRegModel = MLPRegressor(hidden_layer_sizes=(50), activation='tanh', solver='lbfgs',
+MLPRegModel = MLPRegressor(hidden_layer_sizes=(50), activation='relu', solver='lbfgs',
                            tol=1e-4, max_iter=10000, random_state=1)
 
 MLPRegModel.fit(X_train, Y_train)
@@ -97,25 +97,6 @@ Y_predMLPReg = MLPRegModel.predict(X_test)
 MseMLP = mean_squared_error(Y_test, Y_predMLPReg)
 print('SKLearn Neural Network Model')
 print(MseMLP)
-
-
-# Plot a comparison diagram
-
-plt.figure(1)
-plt.subplot(121)
-plt.scatter(Y_test, Y_predMLPReg)
-plt.plot((0, 1), "r--")
-plt.xlabel("Actual values")
-plt.ylabel("Predicted values")
-plt.title("SKLearn Neural Network Model")
-
-plt.subplot(122)
-plt.scatter(Y_test, Y_predLR)
-plt.plot((0, 1), "r--")
-plt.xlabel("Actual values")
-plt.ylabel("Predicted values")
-plt.title("SKLearn Linear Regression Model")
-plt.show()
 
 
 # Keras Model
@@ -135,3 +116,31 @@ Y_predKM = model.predict(X_test)
 score = model.evaluate(X_test, Y_test, verbose=0)
 print('Keras Model')
 print(score[0])
+
+
+# Plot a comparison diagram
+
+plt.figure(1)
+
+plt.subplot(221)
+plt.scatter(Y_test, Y_predMLPReg)
+plt.plot((0, 1), "r--")
+plt.xlabel("Actual values")
+plt.ylabel("Predicted values")
+plt.title("SKLearn Neural Network Model")
+
+plt.subplot(222)
+plt.scatter(Y_test, Y_predKM)
+plt.plot((0, 1), "r--")
+plt.xlabel("Actual values")
+plt.ylabel("Predicted values")
+plt.title("Keras Sequential Model")
+plt.show()
+
+plt.subplot(223)
+plt.scatter(Y_test, Y_predLR)
+plt.plot((0, 1), "r--")
+plt.xlabel("Actual values")
+plt.ylabel("Predicted values")
+plt.title("SKLearn Linear Regression Model")
+plt.show()
